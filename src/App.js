@@ -90,7 +90,7 @@ function App() {
     // Add all the manual items
     selectedArr.forEach((id) => {
       if (!gear_data[id]) {
-        items += id + ", N\/A;\n"
+        items += id + ", N/A;\n"
       }
     })
 
@@ -104,7 +104,9 @@ function App() {
       "value": value,
       "items": items
     }
-    console.log(submit_obj)
+    submit_json = JSON.stringify(submit_obj)
+    const res = await axios.post('https://script.google.com/macros/s/AKfycbz-xjHDHWVp0Lfrn_dfxsqjfFIPWtQsN1nyC-TSkhWRgmKhqfEZLofAwp_oM6Umpts/exec', submit_json);
+
     setTheArray([])
     setManualText("")
     setUser({id: ""})

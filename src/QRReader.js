@@ -11,7 +11,7 @@ const QRReader = (props) => {
   return (
     <>
       <QrReader
-        constraints= { facingMode: 'environment' }
+        constraints= {{ facingMode: 'environment' }}
         onResult={(result, error) => {
           if (!!result) {
             if (!isConfirming) {

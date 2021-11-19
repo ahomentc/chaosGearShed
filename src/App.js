@@ -104,8 +104,8 @@ function App() {
       "value": value,
       "items": items
     }
-    submit_json = JSON.stringify(submit_obj)
-    const res = await axios.post('https://script.google.com/macros/s/AKfycbz-xjHDHWVp0Lfrn_dfxsqjfFIPWtQsN1nyC-TSkhWRgmKhqfEZLofAwp_oM6Umpts/exec', submit_json);
+    const submit_json = JSON.stringify(submit_obj)
+    axios.post('https://script.google.com/macros/s/AKfycbz-xjHDHWVp0Lfrn_dfxsqjfFIPWtQsN1nyC-TSkhWRgmKhqfEZLofAwp_oM6Umpts/exec', submit_json);
 
     setTheArray([])
     setManualText("")

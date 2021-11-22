@@ -103,6 +103,8 @@ function App() {
       }
     }
 
+    items = items.slice(0, -1); 
+
     const submit_obj = {
       "phone": user.phone,
       "destination": user.destination,

@@ -16,6 +16,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Typography from '@mui/material/Typography';
 
 const axios = require('axios');
 
@@ -60,9 +61,13 @@ function App() {
   }
 
   const handleSubmit = () => {
+
+    if (selectedArr.length == 0) {
+      return;
+    }
+
     var today = new Date();
     var time = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
-    // should also add hour
 
     var value = 0
     selectedArr.forEach((id) => {
@@ -88,11 +93,15 @@ function App() {
     })
 
     // Add all the manual items
-    selectedArr.forEach((id) => {
+    for (var i=0; i<selectedArr.length; i++) {
+      const id = selectedArr[i];
       if (!gear_data[id]) {
-        items += id + ", N/A;\n"
+        items += id + ", N/A;"
+        if (i+1 != selectedArr.length) {
+          items += "\n"
+        }
       }
-    })
+    }
 
     const submit_obj = {
       "phone": user.phone,
@@ -102,6 +111,7 @@ function App() {
       "officer": officerName,
       "email": user.email,
       "value": value,
+      "name": user.name,
       "items": items
     }
     const submit_json = JSON.stringify(submit_obj)
@@ -125,6 +135,7 @@ function App() {
 
   const addUserFromQR = (userObj) => {
     setUser(userObj)
+    alert("Checking out for: " + userObj.name)
   }
 
   useEffect(() => {
@@ -175,9 +186,6 @@ function App() {
         <QRReader addUserFromQR={addUserFromQR} addIdFromQR={addIdFromQR} />
       </div>
       <div style={{marginTop: "-30px"}} >
-        {user.name &&
-          <p style={{ fontSize: "12px", padding: "0px" }}>Checking out: {user.name}</p>
-        }
         <Box style={{alignItems: 'center', justifyContent: 'center', display: 'flex'}} >
           <List
             style={{backgroundColor: "#eee",
@@ -196,7 +204,7 @@ function App() {
                   {
                     gear_data[id]
                     ?
-                      <ListItemText primary={"Description: " + gear_data[id].description} secondary={"id: " + id + " name: " + gear_data[id].name} />
+                      <ListItemText primary={gear_data[id].description != '""' && <Typography style={{ fontSize: "16px" }}>{"Description: " + gear_data[id].description}</Typography>} secondary={<Typography style={{ fontSize: "16px" }}>{"id: " + id + " name: " + gear_data[id].name}</Typography>} />
                     :
                       <ListItemText primary={"Manual: " + id} />
                   }

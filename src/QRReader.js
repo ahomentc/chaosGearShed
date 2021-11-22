@@ -32,7 +32,10 @@ const QRReader = (props) => {
                   isConfirming = true
                   const gear_data = getFromCache("gear")
                   const key = qr_data.replace(/\\/g, '').replace(/['"]+/g, '');
-                  var r = window.confirm("Adding: \n" + qr_data + "\n" + gear_data[key].name + "\n" + gear_data[key].description);
+                  var r = window.confirm("Adding: \n" + qr_data + "\n" + gear_data[key].name);
+                  if (gear_data[key].description != '""') {
+                    r = window.confirm("Adding: \n" + qr_data + "\n" + gear_data[key].name + "\n" + gear_data[key].description);
+                  }
                   isConfirming = false
                   if (r == true) {
                     props.addIdFromQR(qr_data)
